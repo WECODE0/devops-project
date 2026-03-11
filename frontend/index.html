@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DevOps App</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: 
+        radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1a 100%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232a2a3f' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    color: #e4e4e7;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(234, 88, 12, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+nav {
+    background: linear-gradient(180deg, #27272a 0%, #18181b 100%);
+    border-bottom: 3px solid #f97316;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    padding: 0;
+}
+
+nav a {
+    display: inline-block;
+    color: #a1a1aa;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 20px 30px;
+    transition: all 0.3s ease;
+    border-right: 1px solid #3f3f46;
+}
+
+nav a:first-child {
+    border-left: 1px solid #3f3f46;
+}
+
+nav a:hover {
+    color: #f97316;
+    background: rgba(249, 115, 22, 0.1);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #f97316;
+    transition: width 0.3s ease;
+}
+
+nav a {
+    position: relative;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.container {
+    margin-top: 60px;
+    padding: 40px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    background: linear-gradient(145deg, #27272a 0%, #18181b 100%);
+    border: 1px solid #3f3f46;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+h1, h2 {
+    font-family: 'Inter', sans-serif;
+    color: #f97316;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #f97316, transparent);
+    margin-top: 15px;
+    border-radius: 2px;
+}
+
+p {
+    color: #a1a1aa;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+input {
+    background: #0f0f1a;
+    border: 2px solid #3f3f46;
+    border-radius: 8px;
+    color: #f97316;
+    padding: 15px 20px;
+    margin: 10px;
+    font-size: 16px;
+    width: 300px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+}
+
+input::placeholder {
+    color: #71717a;
+}
+
+button {
+    background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 40px;
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #9a3412, 0 6px 20px rgba(249, 115, 22, 0.3);
+    transition: all 0.1s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #9a3412, 0 8px 25px rgba(249, 115, 22, 0.4);
+}
+
+button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #9a3412;
+}
+
+table {
+    margin: 30px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    max-width: 800px;
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+th {
+    background: linear-gradient(180deg, #3f3f46 0%, #27272a 100%);
+    color: #f97316;
+    font-weight: 600;
+    padding: 20px;
+    text-align: left;
+    border-bottom: 2px solid #f97316;
+}
+
+td {
+    padding: 18px;
+    border-bottom: 1px solid #3f3f46;
+    color: #e4e4e7;
+}
+
+tr:hover td {
+    background: rgba(249, 115, 22, 0.05);
+    color: #f97316;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 10px #22c55e;
+    margin-right: 10px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #3f3f46;
+    border-top: 3px solid #f97316;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.success-message {
+    background: linear-gradient(180deg, #27272a 0%, #18181b 100%);
+    border: 2px solid #22c55e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    color: #22c55e;
+    text-align: center;
+}
+
+.error-message {
+    background: linear-gradient(180deg, #27272a 0%, #18181b 100%);
+    border: 2px solid #ef4444;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    color: #ef4444;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="#" onclick="showHome()">Home</a>
+    <a href="#" onclick="showAdd()">Add User</a>
+    <a href="#" onclick="showUsers()">View Users</a>
+</nav>
+
+<div class="container" id="content">
+
+    <div class="card">
+        <h1>DevOps Dashboard</h1>
+        <p style="margin-top: 20px; font-size: 18px;">
+            <span class="status-dot"></span>
+            System Online | FastAPI + MySQL Integration
+        </p>
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #3f3f46; color: #71717a; font-size: 14px;">
+            Version 2.4.1 | Environment: Production | Response Time: 12ms
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+function showHome(){
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h1>Welcome</h1>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; text-align: left;">
+                <div style="border: 1px solid #3f3f46; padding: 20px; border-radius: 8px; background: #0f0f1a;">
+                    <h3 style="color: #f97316; margin-bottom: 10px;">Server Status</h3>
+                    <p style="color: #a1a1aa;">Status: Online<br>Uptime: 99.9%<br>Load: 34%</p>
+                </div>
+                <div style="border: 1px solid #3f3f46; padding: 20px; border-radius: 8px; background: #0f0f1a;">
+                    <h3 style="color: #f97316; margin-bottom: 10px;">Database</h3>
+                    <p style="color: #a1a1aa;">MySQL: Connected<br>Connections: 8/20<br>Latency: 2ms</p>
+                </div>
+            </div>
+            <p style="margin-top: 30px; text-align: center; color: #71717a;">
+                This application manages user data through a FastAPI backend with MySQL database.
+            </p>
+        </div>
+    `
+}
+
+function showAdd(){
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Add New User</h2>
+            <div style="margin-top: 30px;">
+                <input id="name" placeholder="Full Name"><br>
+                <input id="email" placeholder="Email Address"><br>
+                <button onclick="addUser()">Save User</button>
+            </div>
+            <div style="margin-top: 30px; padding: 15px; background: #0f0f1a; border-left: 3px solid #f97316; text-align: left; font-size: 14px; color: #71717a;">
+                Enter user details above and click Save to add to the database.
+            </div>
+        </div>
+    `
+}
+
+function addUser(){
+    let name=document.getElementById("name").value
+    let email=document.getElementById("email").value
+
+    if(!name || !email) {
+        alert("Please fill in all fields");
+        return;
+    }
+
+    const btn = document.querySelector('button');
+    btn.innerHTML = '<span class="loading" style="width: 20px; height: 20px; border-width: 2px; vertical-align: middle; margin-right: 10px;"></span> Saving...';
+    btn.disabled = true;
+
+    fetch('/api/add-user?name='+encodeURIComponent(name)+'&email='+encodeURIComponent(email),{
+        method:'POST'
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        document.getElementById("content").innerHTML = `
+            <div class="card">
+                <div class="success-message">
+                    User Saved Successfully<br>
+                    <span style="font-size: 14px; color: #a1a1aa;">ID: ${data.id || 'Auto-generated'} | Time: ${new Date().toLocaleString()}</span>
+                </div>
+                <button onclick="showAdd()" style="margin-top: 20px;">Add Another User</button>
+                <button onclick="showUsers()" style="margin-left: 10px; background: linear-gradient(180deg, #3f3f46 0%, #27272a 100%); box-shadow: 0 4px 0 #18181b;">View All Users</button>
+            </div>
+        `;
+    })
+    .catch(err => {
+        alert("Error: " + err.message);
+        btn.innerHTML = 'Save User';
+        btn.disabled = false;
+    })
+}
+
+function showUsers(){
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>User List</h2>
+            <div style="margin: 30px auto; text-align: center;">
+                <div class="loading"></div>
+                <p style="margin-top: 15px; color: #71717a;">Loading users...</p>
+            </div>
+        </div>
+    `;
+
+    fetch('/api/users')
+    .then(res=>res.json())
+    .then(data=>{
+        let html=`
+            <div class="card">
+                <h2>All Users <span style="font-size: 14px; color: #71717a;">(${data.length} total)</span></h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `
+
+        data.forEach((user, index)=>{
+            html+=`<tr style="animation: fadeIn 0.3s ease forwards; animation-delay: ${index * 0.05}s; opacity: 0;">
+                <td><span style="color: #f97316; font-weight: bold;">#${user[0].toString().padStart(4, '0')}</span></td>
+                <td>${user[1]}</td>
+                <td style="font-family: monospace; color: #a1a1aa;">${user[2]}</td>
+            </tr>`
+        })
+
+        html+=`</tbody></table>
+            <div style="margin-top: 20px; text-align: center; color: #71717a; font-size: 12px;">
+                Last updated: ${new Date().toLocaleTimeString()} | Secure Connection
+            </div>
+        </div>
+        
+        <style>
+            @keyframes fadeIn {
+                to { opacity: 1; }
+            }
+        </style>
+        `
+
+        document.getElementById("content").innerHTML=html
+    })
+    .catch(err => {
+        document.getElementById("content").innerHTML = `
+            <div class="card">
+                <div class="error-message">
+                    Failed to load users<br>
+                    <span style="font-size: 14px;">${err.message}</span>
+                </div>
+                <button onclick="showUsers()" style="margin-top: 20px;">Try Again</button>
+            </div>
+        `;
+    })
+}
+
+window.onload = function() {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+};
+
+</script>
+
+</body>
+</html>
