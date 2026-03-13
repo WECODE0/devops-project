@@ -1,1 +1,173 @@
-# devops-project
+# DevOps Full-Stack Deployment Project
+
+A complete **containerized web application** deployed on **AWS EC2** using **Docker, Docker Compose, Nginx reverse proxy, FastAPI backend, and MySQL database**.
+
+This project demonstrates a **real-world DevOps workflow** including container orchestration, reverse proxy configuration, and full-stack service communication.
+
+---
+
+# Architecture
+
+```
+Browser
+   │
+   ▼
+Nginx Reverse Proxy
+   │
+   ├── Frontend (React)
+   │
+   └── Backend API (FastAPI)
+          │
+          ▼
+       MySQL Database
+```
+
+---
+
+# Tech Stack
+
+### Infrastructure
+
+* AWS EC2
+* Docker
+* Docker Compose
+
+### Backend
+
+* Python
+* FastAPI
+* MySQL
+
+### Frontend
+
+* React
+* HTML / CSS / JavaScript
+
+### Web Server
+
+* Nginx (Reverse Proxy)
+
+---
+
+# Features
+
+* Containerized multi-service application
+* Reverse proxy routing using Nginx
+* REST API built with FastAPI
+* MySQL database for persistent storage
+* Docker Compose orchestration
+* AWS EC2 deployment
+* User creation and retrieval through API
+
+---
+
+# Project Structure
+
+```
+devops-project
+│
+├── frontend/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── src/
+│
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── main.py
+│
+├── nginx/
+│   └── nginx.conf
+│
+├── docker-compose.yml
+│
+└── README.md
+```
+
+---
+
+# Running the Project
+
+Clone the repository
+
+```
+git clone https://github.com/WECODE0/devops-project.git
+cd devops-project
+```
+
+Start all services
+
+```
+docker-compose up -d --build
+```
+
+Check running containers
+
+```
+docker ps
+```
+
+Open the application
+
+```
+http://YOUR_SERVER_IP
+```
+
+---
+
+# API Endpoints
+
+Get users
+
+```
+GET /api/users
+```
+
+Add user
+
+```
+POST /api/add-user
+```
+
+---
+
+# Deployment
+
+The application is deployed on an **AWS EC2 Ubuntu server** using Docker containers.
+
+Steps:
+
+1. Launch EC2 instance
+2. Install Docker and Docker Compose
+3. Clone the repository
+4. Run `docker-compose up -d --build`
+5. Configure Nginx reverse proxy
+
+---
+
+# DevOps Concepts Demonstrated
+
+* Containerization
+* Reverse proxy configuration
+* Multi-service architecture
+* Infrastructure deployment on cloud
+* Service networking with Docker
+* Backend–database connectivity
+* Production-style project structure
+
+---
+
+# Future Improvements
+
+* CI/CD pipeline with GitHub Actions
+* HTTPS with Let's Encrypt
+* Terraform infrastructure provisioning
+* Monitoring with Prometheus & Grafana
+* Kubernetes deployment
+
+---
+
+# Author
+
+Rehman
+DevOps & Cloud Engineering 
